@@ -31,7 +31,7 @@
             opacity: 1;
             transform: translateY(0);
         }
-        .tm-toast.success { background: #2e7d32; }
+        .tm-toast.success { background: #769826; }
         .tm-toast.error { background: #c62828; }
     `;
     (document.head || document.documentElement).appendChild(style);
