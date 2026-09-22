@@ -2,7 +2,6 @@
     'use strict';
 
     const style = document.createElement("style");
-
     style.textContent = `
         #tm-toast-container {
             position: fixed;
@@ -13,6 +12,7 @@
             flex-direction: column;
             gap: 10px;
             font-family: sans-serif;
+            pointer-events: none;
         }
         .tm-toast {
             background: #333;
@@ -24,6 +24,8 @@
             transition: opacity 0.3s ease, transform 0.3s ease;
             transform: translateY(20px);
             font-size: 14px;
+            pointer-events: auto;
+            cursor: pointer;
         }
         .tm-toast.show {
             opacity: 1;
@@ -32,16 +34,17 @@
         .tm-toast.success { background: #2e7d32; }
         .tm-toast.error { background: #c62828; }
     `;
-
     (document.head || document.documentElement).appendChild(style);
 
-    // Create Container for toast
-    const container = document.createElement('div');
-    container.id = 'tm-toast-container';
-    document.body.appendChild(container);
+    // Define window.showToast IMMEDIATELY so it is never undefined
+    window.showToast = function(message, type = 'info', duration = 3000) {
+        let container = document.getElementById('tm-toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'tm-toast-container';
+            (document.body || document.documentElement).appendChild(container);
+        }
 
-    // Toast Function
-    function showToast(message, type = 'info', duration = 3000) {
         const toast = document.createElement('div');
         toast.className = `tm-toast ${type}`;
         toast.innerText = message;
@@ -49,19 +52,14 @@
 
         toast.addEventListener("click", () => {
             toast.classList.remove('show');
-            toast.remove();
+            setTimeout(() => toast.remove(), 300);
         });
 
-        // Trigger animation
         setTimeout(() => toast.classList.add('show'), 10);
 
-        // Remove after duration
         setTimeout(() => {
             toast.classList.remove('show');
             setTimeout(() => toast.remove(), 300);
         }, duration);
-    }
-
-    // EXPOSE IT GLOBALLY SO YOUR MAIN USERSCRIPT CAN SEE IT
-    window.showToast = showToast;
+    };
 })();
