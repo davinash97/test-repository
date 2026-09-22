@@ -31,7 +31,7 @@
             opacity: 1;
             transform: translateY(0);
         }
-        .tm-toast.success { background: #769826; }
+        .tm-toast.success { background: #499A13; }
         .tm-toast.error { background: #c62828; }
     `;
     (document.head || document.documentElement).appendChild(style);
@@ -39,7 +39,7 @@
     // Define window.showToast IMMEDIATELY so it is never undefined
     window.showToast = function(message, type = 'info', duration = 3000) {
         let container = document.getElementById('tm-toast-container');
-        if (!container) {
+        if (!container) {   
             container = document.createElement('div');
             container.id = 'tm-toast-container';
             (document.body || document.documentElement).appendChild(container);
