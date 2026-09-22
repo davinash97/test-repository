@@ -1,5 +1,5 @@
 (function () {
-    'use script';
+    'use strict';
 
     const style = document.createElement("style");
 
@@ -33,7 +33,6 @@
         .tm-toast.error { background: #c62828; }
     `;
 
-    // Append to document.head instead of body so it works at document-start
     (document.head || document.documentElement).appendChild(style);
 
     // Create Container for toast
@@ -62,4 +61,7 @@
             setTimeout(() => toast.remove(), 300);
         }, duration);
     }
-})()
+
+    // EXPOSE IT GLOBALLY SO YOUR MAIN USERSCRIPT CAN SEE IT
+    window.showToast = showToast;
+})();
