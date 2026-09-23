@@ -28,6 +28,7 @@
             cursor: pointer;
             overflow-y: scroll;
             max-height: 40dvh;
+            width: fit-content;
             scrollbar-width: none;
         }
         .tm-toast.show {
