@@ -26,6 +26,9 @@
             font-size: 14px;
             pointer-events: auto;
             cursor: pointer;
+            overflow-y: scroll;
+            max-height: 40dvh;
+            scrollbar-width: none;
         }
         .tm-toast.show {
             opacity: 1;
@@ -37,9 +40,9 @@
     (document.head || document.documentElement).appendChild(style);
 
     // Define window.showToast IMMEDIATELY so it is never undefined
-    window.showToast = function(message, type = 'info', duration = 3000) {
+    window.showToast = function (message, type = 'info', duration = 3000) {
         let container = document.getElementById('tm-toast-container');
-        if (!container) {   
+        if (!container) {
             container = document.createElement('div');
             container.id = 'tm-toast-container';
             (document.body || document.documentElement).appendChild(container);
